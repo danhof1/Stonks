@@ -11,6 +11,9 @@ class stockInfo {
 	public stockInfo(String nameIn, BigDecimal priceIn) {
 		name = nameIn; price = priceIn;
 	}
+	public BigDecimal getPrice() {
+		return price;
+	}
 	public String toString() {return name + " " + price.toString();}
 }
 
@@ -24,8 +27,8 @@ public class myStock {
 	 */
 
 
-	HashMap<String,stockInfo> myMap = new HashMap<String,stockInfo>();
-	TreeSet<Map.Entry<String, stockInfo>> myTree = new TreeSet<Map.Entry<String, stockInfo>>();
+	HashMap<String,stockInfo> myMap;
+	TreeSet<Map.Entry<String, stockInfo>> myTree;
 	
 	public myStock() {
 		/* 
@@ -33,6 +36,14 @@ public class myStock {
 		 * HINT: to let the stocks be sorted by the price in a data structure 
 		 * the compare method need to be overridden. 
 		 */
+		myMap = new HashMap<String,stockInfo>();
+		myTree = new TreeSet<Map.Entry<String, stockInfo>>(new Comparator<Map.Entry<String, stockInfo>>(){
+			@Override
+			public int compare(Map.Entry<String, stockInfo> s1,Map.Entry<String, stockInfo> s2) {
+				return 1;
+			}
+		});
+		
 		
 		
 		
@@ -45,7 +56,8 @@ public class myStock {
 		 * Make sure multiple copies are inserted or updated.
 		 */
 		myMap.put(symbol, stock);
-		
+		Map.Entry<String, stockInfo> entry = Map.entry(symbol, stock);
+		myTree.add(entry);
 	}
 
 	public stockInfo get(String symbol) throws IOException {
@@ -66,20 +78,16 @@ public class myStock {
 		 * Iterator<Map.Entry<String, stockInfo>> setIterator = set.iterator();
 		 * see more info from https://www.geeksforgeeks.org/treeset-iterator-method-in-java/
 		 */
-		/*myMap.get(myMap)
-		myTree.addAll(myMap.entrySet());
+		
+		
 		Iterator<Entry<String, stockInfo>> value = myTree.iterator();
 		// Displaying the values after iterating through the set
 		System.out.println("The iterator values are: ");
 		while (value.hasNext()) {
-			System.out.println(value.next().getValue());
-		}*/
-		
-		List list = new ArrayList(myMap.values());
-		Collections.sort(list);
-		for(int i=list.size()-10; i<list.size(); i++) {
-		   System.out.println(list.get(i));
+			System.out.println(value.next());
 		}
+		
+		
 		
 		return null;
 	}
