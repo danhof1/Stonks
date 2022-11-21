@@ -40,7 +40,7 @@ public class myStock {
 		myTree = new TreeSet<Map.Entry<String, stockInfo>>(new Comparator<Map.Entry<String, stockInfo>>(){
 			@Override
 			public int compare(Map.Entry<String, stockInfo> s1,Map.Entry<String, stockInfo> s2) {
-				return 1;
+				return -s1.getValue().getPrice().compareTo(s2.getValue().getPrice());
 			}
 		});
 		
@@ -78,18 +78,13 @@ public class myStock {
 		 * Iterator<Map.Entry<String, stockInfo>> setIterator = set.iterator();
 		 * see more info from https://www.geeksforgeeks.org/treeset-iterator-method-in-java/
 		 */
-		
-		
+		List<Map.Entry<String, stockInfo>> myList = new ArrayList<Map.Entry<String, stockInfo>>();
 		Iterator<Entry<String, stockInfo>> value = myTree.iterator();
-		// Displaying the values after iterating through the set
-		System.out.println("The iterator values are: ");
-		while (value.hasNext()) {
-			System.out.println(value.next());
+		for(int i=0;i<k;i++) {
+			myList.add(value.next());
 		}
 		
-		
-		
-		return null;
+		return myList;
 	}
 
 	public static void main(String[] args) throws IOException {
